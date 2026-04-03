@@ -69,7 +69,7 @@ ai-support-copilot/
 python examples/basic_chat.py
 ```
 
-For detailed setup, see 👉 `docs/quickstart.md`
+For detailed setup, see 👉 [Quickstart Guide](docs/quickstart.md)
 
 ---
 
@@ -155,11 +155,18 @@ This project is a step toward that shift.
 
 ## 👤 Author
 
-Somesh Chawan
-Developer Experience | Information Developer Educator
+Somesh Chawan  
+Developer Experience | Technical Writer → Developer Educator  
+Focused on building developer-first documentation systems, API learning experiences, and AI-assisted workflows.
 
 ---
 
 ## 📄 License
 
 MIT License
+
+---
+
+## 📚 Inspiration
+
+This project is inspired by modern AI developer platforms that emphasize not just API usage, but building reliable, production-ready systems with strong developer onboarding and evaluation practices.
