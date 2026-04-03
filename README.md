@@ -1,4 +1,4 @@
-# AI Support Copilot
+# AI Support Copilot (Production-Style Developer Education Project)
 
 A production-style AI support assistant designed to demonstrate how developers can build, evaluate, and improve real-world AI-powered features using modern API workflows.
 
@@ -6,7 +6,7 @@ A production-style AI support assistant designed to demonstrate how developers c
 
 ## 🧠 Why this project exists
 
-AI APIs make it easy to generate responses—but building **reliable, production-ready AI systems** is much harder.
+AI APIs (e.g., Claude / OpenAI-compatible APIs) make it easy to generate responses—but building **reliable, production-ready AI systems** is much harder.
 
 Developers often struggle with:
 
@@ -188,6 +188,8 @@ to:
 > “Can we build something reliable, understandable, and usable?”
 
 This project is a step toward that shift.
+
+This project reflects how modern AI products should be built—where developer experience, reliability, and evaluation are first-class concerns, not afterthoughts.
 
 ---
 
