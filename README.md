@@ -113,12 +113,33 @@ For detailed setup, see 👉 [Quickstart Guide](docs/quickstart.md)
 
 ## 📚 Developer Learning Path
 
-Explore the key topics covered in this project:
+Navigate the project based on what you want to do:
 
-* 👉 [Quickstart](docs/quickstart.md) — Get up and running quickly
-* 👉 [Prompt Design](docs/concepts/prompts.md) — Learn how to structure effective prompts
-* 👉 [Build a Chatbot](docs/guides/build-chatbot.md) — Step-by-step implementation guide
-* 👉 [API Errors & Troubleshooting](docs/troubleshooting/api-errors.md) — Handle real-world failures
+### 🚀 Get Started
+
+* 👉 [Quickstart](docs/quickstart.md) — Run your first AI interaction
+
+### 🧠 Learn Core Concepts
+
+* 👉 [Prompt Design](docs/concepts/prompts.md) — Structure inputs for better outputs
+
+### 🛠️ Build Features
+
+* 👉 [Build a Chatbot](docs/guides/build-chatbot.md) — Step-by-step implementation
+
+### ⚠️ Handle Failures
+
+* 👉 [API Errors & Troubleshooting](docs/troubleshooting/api-errors.md) — Debug real-world issues
+
+### 💻 Explore the Code
+
+* 👉 [`src/copilot.py`](src/copilot.py) — Core AI interaction logic
+* 👉 [`examples/basic_chat.py`](examples/basic_chat.py) — Working CLI example
+
+### 🧪 Evaluate Output Quality
+
+* 👉 [`evals/response_quality.py`](evals/response_quality.py) — Basic evaluation system
+
 
 ---
 
