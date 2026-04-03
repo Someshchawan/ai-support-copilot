@@ -33,6 +33,29 @@ A simple but realistic **AI-powered support copilot** that:
 
 ---
 
+## 💬 Example Interaction
+
+Here’s a sample interaction with the AI Support Copilot:
+
+**User:**
+
+```
+How do I reset my password?
+```
+
+**Response:**
+
+```
+1. Go to the login page  
+2. Click on "Forgot Password"  
+3. Enter your registered email address  
+4. Follow the instructions sent to your email to reset your password  
+```
+
+This demonstrates how structured prompts can produce clear, actionable responses.
+
+---
+
 ## 🏗️ Project structure
 
 ```
@@ -56,6 +79,21 @@ ai-support-copilot/
 └── evals/
     └── response_quality.py       # Basic evaluation system
 ```
+---
+
+## 🧠 System Flow
+
+[User]
+   ↓
+[Prompt Builder]
+   ↓
+[AI API]
+   ↓
+[Response Parser]
+   ↓
+[Evaluation Layer]
+   ↓
+[Final Output]
 
 ---
 
