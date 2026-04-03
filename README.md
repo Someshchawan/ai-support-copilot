@@ -111,6 +111,17 @@ For detailed setup, see 👉 [Quickstart Guide](docs/quickstart.md)
 
 ---
 
+## 📚 Developer Learning Path
+
+Explore the key topics covered in this project:
+
+* 👉 [Quickstart](docs/quickstart.md) — Get up and running quickly
+* 👉 [Prompt Design](docs/concepts/prompts.md) — Learn how to structure effective prompts
+* 👉 [Build a Chatbot](docs/guides/build-chatbot.md) — Step-by-step implementation guide
+* 👉 [API Errors & Troubleshooting](docs/troubleshooting/api-errors.md) — Handle real-world failures
+
+---
+
 ## 🧩 Key Concepts Covered
 
 ### Prompt Design
