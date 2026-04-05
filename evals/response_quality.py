@@ -1,74 +1,58 @@
 """
 Basic evaluation module for assessing AI response quality.
 
-This is a simplified approach to demonstrate how developers can
+This provides a simplified approach to demonstrate how developers can
 detect low-quality or unreliable outputs in AI systems.
 """
 
+from src.copilot import AISupportCopilot
+
+
 def evaluate_response(response):
-"""
-Evaluate AI response quality based on simple heuristics.
-Returns a dictionary with evaluation results.
-"""
+    """
+    Basic heuristic evaluation of response quality.
+    """
+    if not response or len(response.strip()) < 10:
+        return "⚠️ Low-quality response"
 
-```
-result = {
-    "is_valid": True,
-    "issues": [],
-}
+    if "Error" in response:
+        return "❌ API or parsing issue"
 
-if not response or not response.strip():
-    result["is_valid"] = False
-    result["issues"].append("Empty response")
+    return "✅ Response looks reasonable"
 
-# Detect fallback or uncertain responses
-fallback_phrases = [
-    "i don't know",
-    "cannot help with that",
-    "not sure",
-    "no information available",
-]
 
-if any(phrase in response.lower() for phrase in fallback_phrases):
-    result["issues"].append("Uncertain or fallback response")
+def main():
+    print("🤖 AI Support Copilot (Evaluation Mode)")
+    print("Type 'exit' to quit\n")
 
-# Detect overly short responses
-if len(response.split()) < 5:
-    result["issues"].append("Response too short")
+    try:
+        copilot = AISupportCopilot()
+    except ValueError as e:
+        print(f"Setup Error: {e}")
+        return
 
-# Detect overly long responses (basic heuristic)
-if len(response.split()) > 200:
-    result["issues"].append("Response too long")
+    while True:
+        user_input = input("Ask something: ").strip()
 
-return result
-```
+        if user_input.lower() == "exit":
+            print("Goodbye! 👋")
+            break
 
-def print_evaluation(response):
-"""
-Print evaluation results in a readable format.
-"""
+        if not user_input:
+            print("Please enter a valid question.\n")
+            continue
 
-```
-evaluation = evaluate_response(response)
+        print("\nThinking...\n")
 
-print("\n🔍 Evaluation Result")
+        response = copilot.get_response(user_input)
+        evaluation = evaluate_response(response)
 
-if evaluation["is_valid"] and not evaluation["issues"]:
-    print("✅ Response looks good")
-else:
-    print("⚠️ Issues detected:")
-    for issue in evaluation["issues"]:
-        print(f"- {issue}")
-```
+        print("Response:")
+        print(response)
+        print("\nEvaluation:")
+        print(evaluation)
+        print("-" * 50)
 
-if **name** == "**main**":
-# Example usage
-sample_response = "I don't know the answer to that."
 
-```
-print("Response:")
-print(sample_response)
-
-print_evaluation(sample_response)
-```
-
+if __name__ == "__main__":
+    main()
