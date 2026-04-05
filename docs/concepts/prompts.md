@@ -8,13 +8,27 @@ A well-structured prompt can significantly improve response quality, while a poo
 
 ## 🧠 What is a prompt?
 
-A prompt is the input provided to an AI model to guide its response.
+A prompt is the structured input provided to an AI model to guide its response.
 
 It typically includes:
 
 * Instructions (what the model should do)
 * Context (relevant background information)
 * User input (the actual query)
+
+---
+
+## 🧠 Prompt as an Interface
+
+In AI systems, the prompt acts as the **interface between your application and the model**.
+
+Unlike traditional APIs where behavior is fixed, prompts define:
+
+* How the model behaves
+* What context it considers
+* How responses are structured
+
+This means prompt design is not just input formatting—it is **system design**.
 
 ---
 
@@ -70,6 +84,27 @@ Provide a clear, step-by-step answer.
 
 ---
 
+### 🆚 Output Comparison
+
+**Poor Prompt Output:**
+
+```
+You can reset your password from the login page.
+```
+
+**Improved Prompt Output:**
+
+```
+1. Go to the login page  
+2. Click on "Forgot Password"  
+3. Enter your registered email address  
+4. Follow the instructions sent to your email  
+```
+
+👉 Better prompts produce more structured, actionable responses.
+
+---
+
 ## 🎯 Key Principles
 
 ### 1. Be explicit
@@ -87,6 +122,14 @@ Specify tone, format, or constraints.
 ### 4. Reduce ambiguity
 
 Avoid vague or incomplete instructions.
+
+### 5. Add constraints
+
+Limit the model’s behavior when needed.
+
+Example:
+- “Answer in 3 steps”
+- “Do not assume missing information”
 
 ---
 
