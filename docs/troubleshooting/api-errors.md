@@ -180,6 +180,7 @@ In real systems, you should:
 
 ### Examples:
 
+```python
 import logging
 
 logging.basicConfig(level=logging.ERROR)
@@ -188,6 +189,8 @@ try:
     response = copilot.get_response(user_input)
 except Exception as e:
     logging.error(f"API request failed: {e}")
+```
+
     
 ---
 
