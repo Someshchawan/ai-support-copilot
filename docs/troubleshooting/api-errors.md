@@ -17,6 +17,22 @@ AI systems depend on multiple layers:
 
 Failures can occur at any of these points.
 
+## ⚠️ Two Types of Failures
+
+In AI systems, failures are not always technical.
+
+### 1. System Errors
+
+* API failures (401, 429, timeouts)
+* Network or infrastructure issues
+
+### 2. AI Behavior Issues
+
+* Incorrect or hallucinated responses
+* Irrelevant or low-quality outputs
+
+Both must be handled differently to build reliable systems.
+
 ---
 
 ## ❌ Common Errors
@@ -86,19 +102,19 @@ Connection timeout
 
 ---
 
-### ⚠️ Unexpected or Empty Responses
+### ⚠️ Unexpected or Low-Quality Responses
 
 ### Why it happens:
 
-* Poor prompt design
+* Poor or ambiguous prompt design
+* Missing context
 * Model uncertainty
-* API response parsing issues
 
 ### How to fix:
 
-* Improve prompt clarity
-* Validate response structure
-* Add fallback handling
+* Add clearer instructions
+* Include relevant context
+* Use evaluation checks to detect weak outputs
 
 ---
 
@@ -116,13 +132,16 @@ When something goes wrong:
 
 ## 🔁 Adding Basic Retry Logic
 
-```python id="retry1"
+```python
+from src.copilot import AISupportCopilot
 import time
 
-def safe_request(prompt):
+copilot = AISupportCopilot()
+
+def safe_request(user_input):
     for _ in range(3):
         try:
-            return ask_ai(prompt)
+            return copilot.get_response(user_input)
         except Exception:
             time.sleep(2)
     return "Error: Unable to process request"
@@ -159,6 +178,17 @@ In real systems, you should:
 * Monitor response quality
 * Implement fallback strategies
 
+### Examples:
+
+import logging
+
+logging.basicConfig(level=logging.ERROR)
+
+try:
+    response = copilot.get_response(user_input)
+except Exception as e:
+    logging.error(f"API request failed: {e}")
+    
 ---
 
 ## 🚀 Next Steps
