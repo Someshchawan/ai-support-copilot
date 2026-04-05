@@ -52,6 +52,26 @@ Provide a clear and helpful answer.
 * Improves consistency
 * Reduces vague responses
 
+### 🆚 Without vs With Structured Prompt
+
+**Without structure:**
+
+```id="n8dj2s"
+How do I reset my password?
+```
+
+**With structured prompt:**
+
+```id="7sd82k"
+You are a helpful support assistant.
+
+User: How do I reset my password?
+
+Provide a clear, step-by-step answer.
+```
+
+👉 Structured prompts produce more consistent and useful responses.
+
 ---
 
 ## 🔌 Step 3: Send Request to API
@@ -59,7 +79,7 @@ Provide a clear and helpful answer.
 Send the prompt to your AI provider:
 
 ```python id="x7y8z9"
-response = ask_ai(prompt)
+response = copilot.get_response(user_input)
 ```
 
 Your `ask_ai` function handles:
@@ -78,46 +98,65 @@ Print the output for the user:
 print(response)
 ```
 
+### ✅ Example Output
+
+```
+Response:
+1. Go to the login page  
+2. Click on "Forgot Password"  
+3. Enter your registered email address  
+4. Follow the instructions sent to your email  
+```
+
+👉 This confirms your chatbot is working correctly.
+
 ---
 
 ## 🔄 Step 5: Create a Loop (Optional)
 
-To make it interactive:
+To make the chatbot interactive:
 
-```python id="l6k7j8"
+```python
+from src.copilot import AISupportCopilot
+
+copilot = AISupportCopilot()
+
 while True:
-    user_input = input("Ask something (type 'exit' to quit): ")
-    
+    user_input = input("Ask something (type 'exit' to quit): ").strip()
+
     if user_input.lower() == "exit":
         break
 
-    prompt = f"""
-    You are a helpful support assistant.
+    if not user_input:
+        print("Please enter a valid question.\n")
+        continue
 
-    User: {user_input}
-    """
+    response = copilot.get_response(user_input)
 
-    response = ask_ai(prompt)
+    print("\nResponse:")
     print(response)
+    print("-" * 50)
 ```
+
 
 ---
 
 ## ⚠️ Common Issues
 
-### Generic or poor responses
+### Poor or generic responses
 
-* Improve prompt clarity
-* Add context
+* Add clearer instructions to the prompt
+* Include relevant context
 
-### Repetitive answers
+### Inconsistent output format
 
-* Adjust instructions
-* Refine prompt structure
+* Specify structure (e.g., “step-by-step answer”)
 
-### Unexpected output format
+### Responses not aligned with user intent
 
-* Specify output format explicitly
+* Refine prompt wording
+* Test with multiple inputs
+
 
 ---
 
@@ -148,6 +187,18 @@ Use `evals/response_quality.py` to:
 * Detect weak responses
 * Flag issues
 * Improve reliability
+
+---
+
+### Control response behavior
+
+You can guide the model further by:
+
+- Setting tone (e.g., concise, friendly)
+- Limiting output length
+- Asking for structured formats (lists, steps)
+
+This improves consistency and usability in real-world applications.
 
 ---
 
