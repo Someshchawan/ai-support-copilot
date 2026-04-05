@@ -74,7 +74,20 @@ Provide a clear, step-by-step answer.
 
 ---
 
-## 🔌 Step 3: Send Request to API
+## ⚙️ Step 3: Initialize the Copilot
+
+Before sending requests, initialize the AI support copilot:
+
+```python id="copi3"
+from src.copilot import AISupportCopilot
+
+copilot = AISupportCopilot()
+```
+
+
+---
+
+## 🔌 Step 4: Send Request to API
 
 Send the prompt to your AI provider:
 
@@ -90,7 +103,7 @@ Your `ask_ai` function handles:
 
 ---
 
-## 📤 Step 4: Display the Response
+## 📤 Step 5: Display the Response
 
 Print the output for the user:
 
@@ -112,7 +125,7 @@ Response:
 
 ---
 
-## 🔄 Step 5: Create a Loop (Optional)
+## 🔄 Step 6: Create a Loop (Optional)
 
 To make the chatbot interactive:
 
