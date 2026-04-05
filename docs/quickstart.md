@@ -1,28 +1,19 @@
-# Quickstart
+## ⚡ Quickstart
 
-This guide helps you run the AI Support Copilot locally and make your **first successful AI API call in under 5 minutes**.
-
----
-
-## 🎯 What you’ll achieve
-
-By the end of this guide, you will:
-
-* Make your first AI-powered API call
-* Understand the basic request → response flow
-* Run a working AI support interaction locally
+Get the AI Support Copilot running locally in under 2 minutes.
 
 ---
 
-## ⚡ Prerequisites
+### ⚡ Prerequisites
+
+Before you begin, ensure you have:
 
 * Python 3.9+
-* An API key from your AI provider (e.g., OpenAI or Claude-compatible API)
-* Basic familiarity with running Python scripts
+* An API key (Claude / OpenAI-compatible API)
 
 ---
 
-## 📦 Step 1: Clone the repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/<your-username>/ai-support-copilot.git
@@ -31,40 +22,43 @@ cd ai-support-copilot
 
 ---
 
-## 🔑 Step 2: Set your API key
+### 2. Set your API key
 
 Set your API key as an environment variable:
 
-### macOS / Linux
+#### macOS / Linux
 
 ```bash
 export API_KEY="your_api_key_here"
 ```
 
-### Windows (PowerShell)
+#### Windows (PowerShell)
 
 ```bash
 setx API_KEY "your_api_key_here"
 ```
 
-> 💡 **Why this matters**
-> The application reads your API key securely from the environment instead of hardcoding it in the code.
+> 💡 The application reads your API key securely from the environment.
 
 ---
 
-## ▶️ Step 3: Run the example
+### 3. Run the example
 
 ```bash
 python examples/basic_chat.py
 ```
 
-You should see:
+---
+
+### 4. Try your first query
+
+You’ll see:
 
 ```
 Ask something:
 ```
 
-Try asking:
+Try:
 
 ```
 How do I reset my password?
@@ -72,72 +66,36 @@ How do I reset my password?
 
 ---
 
-## 🧠 What just happened?
+### ✅ Expected Output
 
-You just executed the **core AI application flow**:
-
-1. Your input was captured from the terminal
-2. It was sent to an AI API
-3. A prompt was constructed internally
-4. The model generated a response
-5. The response was returned and displayed
-
-This is the foundation of most AI-powered applications.
+```
+Response:
+1. Go to the login page  
+2. Click on "Forgot Password"  
+3. Enter your registered email address  
+4. Follow the instructions sent to your email  
+```
 
 ---
 
-## ⚠️ Common Issues
+### 🎯 What just happened?
 
-### ❌ API key not found
-
-* Ensure the environment variable is set correctly
-* Restart your terminal after setting it
-
----
-
-### ❌ Empty or unexpected response
-
-* Verify your API key is valid
-* Check internet connectivity
-* Ensure your request format is correct
+* Your input was converted into a structured prompt
+* The AI API generated a response
+* The system parsed and returned a clean output
 
 ---
 
-### ❌ Slow or inconsistent responses
+### ⚠️ Having Issues?
 
-* AI responses can vary depending on input
-* This will be addressed in later sections (prompt design & evaluation)
+If something doesn’t work as expected, see:
 
----
-
-## 🚀 Next Steps
-
-Now that you’ve completed your first successful run:
-
-* Learn how prompts shape responses → `docs/concepts/prompts.md`
-* Build a structured chatbot → `docs/guides/build-chatbot.md`
-* Handle real-world API failures → `docs/troubleshooting/api-errors.md`
+👉 [API Errors & Troubleshooting](docs/troubleshooting/api-errors.md)
 
 ---
 
-## 📊 Success Criteria
+### 🚀 Next Steps
 
-You have successfully completed this guide if:
-
-* You ran the script without errors
-* You received a valid AI response
-* You understand the basic request → response flow
-
----
-
-## 🎯 Why this guide exists
-
-Developers often get stuck at the very first step—configuring APIs and making the initial call.
-
-This guide is designed to:
-
-* Reduce friction
-* Accelerate onboarding
-* Build early confidence
-
-So you can move quickly toward building real AI-powered features.
+* Learn prompt design → [Prompt Design](docs/concepts/prompts.md)
+* Build a chatbot → [Build a Chatbot](docs/guides/build-chatbot.md)
+* Explore full project → [Developer Learning Path](../README.md#-developer-learning-path)
