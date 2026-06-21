@@ -16,13 +16,19 @@ Before you begin, ensure you have:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/ai-support-copilot.git
+git clone https://github.com/Someshchawan/ai-support-copilot.git
 cd ai-support-copilot
 ```
-
 ---
 
-### 2. Set your API key
+### 2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+---
+
+### 3. Set your API key
 
 Set your API key as an environment variable:
 
@@ -42,7 +48,7 @@ setx API_KEY "your_api_key_here"
 
 ---
 
-### 3. Run the example
+### 4. Run the example
 
 ```bash
 python examples/basic_chat.py
@@ -50,7 +56,7 @@ python examples/basic_chat.py
 
 ---
 
-### 4. Try your first query
+### 5. Try your first query
 
 You’ll see:
 
