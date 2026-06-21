@@ -95,7 +95,7 @@ Send the prompt to your AI provider:
 response = copilot.get_response(user_input)
 ```
 
-Your `ask_ai` function handles:
+Your `get_response` method handles:
 
 * Authentication
 * Request formatting
