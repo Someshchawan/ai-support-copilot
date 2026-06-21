@@ -77,7 +77,9 @@ ai-support-copilot/
 │   └── basic_chat.py             # Simple usage example
 │
 └── evals/
-    └── response_quality.py       # Basic evaluation system
+│    └── response_quality.py       # Basic evaluation system
+└── tests/
+    └── test_evaluation.py       # Testing the failure
 ```
 ---
 
