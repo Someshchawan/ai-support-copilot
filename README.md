@@ -2,6 +2,8 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Tests](https://img.shields.io/badge/tests-17%20passed-brightgreen)
 
+📖 **[Live Documentation Site](https://someshchawan.github.io/ai-support-copilot-docs/)** — Built with Docusaurus, deployed via CI/CD
+
 # AI Support Copilot
 
 A production-style AI support assistant designed to demonstrate how developers can build, evaluate, and improve real-world AI-powered features using modern API workflows.
