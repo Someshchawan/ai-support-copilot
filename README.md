@@ -10,10 +10,10 @@ AI APIs (e.g., Claude / OpenAI-compatible APIs) make it easy to generate respons
 
 Developers often struggle with:
 
-- Designing effective prompts
-- Handling inconsistent or low-quality responses
-- Debugging API failures and edge cases
-- Understanding how to move from “first API call” → “real product feature”
+* Designing effective prompts
+* Handling inconsistent or low-quality responses
+* Debugging API failures and edge cases
+* Understanding how to move from “first API call” → “real product feature”
 
 This project bridges that gap.
 
@@ -25,11 +25,11 @@ It provides a **structured, developer-first approach** to building an AI support
 
 A simple but realistic **AI-powered support copilot** that:
 
-- Accepts user queries
-- Generates contextual AI responses
-- Handles common failure scenarios
-- Demonstrates prompt design patterns
-- Includes basic evaluation of response quality
+* Accepts user queries
+* Generates contextual AI responses
+* Handles common failure scenarios
+* Demonstrates prompt design patterns
+* Includes basic evaluation of response quality
 
 ---
 
@@ -76,35 +76,23 @@ ai-support-copilot/
 ├── examples/
 │   └── basic_chat.py             # Simple usage example
 │
-├── evals/
-│   └── response_quality.py       # Basic evaluation system
-│
-├── observability/                # Evaluation & observability layer
-│   ├── evaluator.py              # Measures quality, detects failures
-│   ├── reliability.py            # Retry policy + call_with_retries
-│   ├── metrics.py                # Quality-metrics aggregation
-│   ├── monitor.py                # End-to-end monitor + report()
-│   └── README.md
-│
-├── demo.py                       # Runnable demo (retries + metrics, no API key)
-└── tests/
-    └── test_observability.py     # Test suite
+└── evals/
+    └── response_quality.py       # Basic evaluation system
 ```
-
 ---
 
 ## 🧠 System Flow
 
 [User]
-↓
+   ↓
 [Prompt Builder]
-↓
+   ↓
 [AI API]
-↓
+   ↓
 [Response Parser]
-↓
+   ↓
 [Evaluation Layer]
-↓
+   ↓
 [Final Output]
 
 ---
@@ -115,11 +103,11 @@ ai-support-copilot/
 2. Add your API key
 3. Run the example:
 
-```
+```bash
 python examples/basic_chat.py
 ```
 
-For detailed setup, see 👉 [Quickstart Guide](https://github.com/Someshchawan/ai-support-copilot/blob/main/docs/quickstart.md)
+For detailed setup, see 👉 [Quickstart Guide](docs/quickstart.md)
 
 ---
 
@@ -129,28 +117,29 @@ Navigate the project based on what you want to do:
 
 ### 🚀 Get Started
 
-- 👉 [Quickstart](https://github.com/Someshchawan/ai-support-copilot/blob/main/docs/quickstart.md) — Run your first AI interaction
+* 👉 [Quickstart](docs/quickstart.md) — Run your first AI interaction
 
 ### 🧠 Learn Core Concepts
 
-- 👉 [Prompt Design](https://github.com/Someshchawan/ai-support-copilot/blob/main/docs/concepts/prompts.md) — Structure inputs for better outputs
+* 👉 [Prompt Design](docs/concepts/prompts.md) — Structure inputs for better outputs
 
 ### 🛠️ Build Features
 
-- 👉 [Build a Chatbot](https://github.com/Someshchawan/ai-support-copilot/blob/main/docs/guides/build-chatbot.md) — Step-by-step implementation
+* 👉 [Build a Chatbot](docs/guides/build-chatbot.md) — Step-by-step implementation
 
 ### ⚠️ Handle Failures
 
-- 👉 [API Errors & Troubleshooting](https://github.com/Someshchawan/ai-support-copilot/blob/main/docs/troubleshooting/api-errors.md) — Debug real-world issues
+* 👉 [API Errors & Troubleshooting](docs/troubleshooting/api-errors.md) — Debug real-world issues
 
 ### 💻 Explore the Code
 
-- 👉 [`src/copilot.py`](https://github.com/Someshchawan/ai-support-copilot/blob/main/src/copilot.py) — Core AI interaction logic
-- 👉 [`examples/basic_chat.py`](https://github.com/Someshchawan/ai-support-copilot/blob/main/examples/basic_chat.py) — Working CLI example
+* 👉 [`src/copilot.py`](src/copilot.py) — Core AI interaction logic
+* 👉 [`examples/basic_chat.py`](examples/basic_chat.py) — Working CLI example
 
 ### 🧪 Evaluate Output Quality
 
-- 👉 [`evals/response_quality.py`](https://github.com/Someshchawan/ai-support-copilot/blob/main/evals/response_quality.py) — Basic evaluation system
+* 👉 [`evals/response_quality.py`](evals/response_quality.py) — Basic evaluation system
+
 
 ---
 
@@ -158,24 +147,24 @@ Navigate the project based on what you want to do:
 
 ### Prompt Design
 
-- Structuring inputs for better outputs
-- Using context effectively
-- Avoiding common prompt mistakes
+* Structuring inputs for better outputs
+* Using context effectively
+* Avoiding common prompt mistakes
 
 ### Response Handling
 
-- Parsing API responses
-- Managing incomplete or irrelevant answers
+* Parsing API responses
+* Managing incomplete or irrelevant answers
 
 ### Failure Modes
 
-- API errors (authentication, rate limits)
-- Hallucinated or low-quality responses
+* API errors (authentication, rate limits)
+* Hallucinated or low-quality responses
 
 ### Evaluation
 
-- Basic techniques to assess response quality
-- Identifying when outputs are unreliable
+* Basic techniques to assess response quality
+* Identifying when outputs are unreliable
 
 ---
 
@@ -183,49 +172,11 @@ Navigate the project based on what you want to do:
 
 This project includes a simple evaluation layer to:
 
-- Detect low-quality responses
-- Flag fallback or uncertain answers
-- Provide a foundation for improving output reliability
+* Detect low-quality responses
+* Flag fallback or uncertain answers
+* Provide a foundation for improving output reliability
 
 This reflects real-world needs where **AI output must be monitored, not assumed correct**.
-
----
-
-## 🔎 Evaluation & Observability Layer
-
-Building on the evaluation approach above, the [`observability/`](observability/) package turns "call the API and hope" into a **monitored loop** where AI output is measured, not assumed correct.
-
-| Capability | How |
-|---|---|
-| **Measures response quality** | Scores each response 0–1 across relevance, length adequacy, structure, and hedging; passes/fails against a configurable threshold. |
-| **Detects failures** | Hard-fails empty output, error markers, and fallback answers ("I don't know", "I'm not sure"). |
-| **Triggers retries** | Re-invokes the model on exceptions *and* low-quality responses with exponential backoff; keeps the best attempt. |
-| **Produces quality metrics** | Aggregates pass rate, failure rate, retry rate, mean/min quality score, average attempts, and latency p50/p95. |
-
-### Try it (no API key needed)
-
-```
-python demo.py
-```
-
-```python
-from observability import ObservabilityMonitor, ResponseEvaluator, RetryPolicy
-
-monitor = ObservabilityMonitor(
-    model,                                   # your src/copilot.py call
-    evaluator=ResponseEvaluator(threshold=0.6),
-    policy=RetryPolicy(max_retries=3),
-)
-answer = monitor.handle("How do I reset my password?")
-print(monitor.report())
-```
-
-Run the tests:
-
-```
-pip install pytest
-pytest -q
-```
 
 ---
 
@@ -233,37 +184,39 @@ pytest -q
 
 This project is built with a strong focus on:
 
-- **Developer Experience (DX)** → Clear onboarding and structure
-- **Progressive Learning** → From simple usage to deeper concepts
-- **Real-world relevance** → Focus on practical use cases
-- **System thinking** → Not just “call API”, but “build a feature”
+* **Developer Experience (DX)** → Clear onboarding and structure
+* **Progressive Learning** → From simple usage to deeper concepts
+* **Real-world relevance** → Focus on practical use cases
+* **System thinking** → Not just “call API”, but “build a feature”
 
 ---
 
 ## 🎯 Who this is for
 
-- Developers new to building AI-powered features
-- Engineers exploring API-based AI systems
-- Technical writers and DevRel professionals
-- Anyone interested in improving AI usability in products
+* Developers new to building AI-powered features
+* Engineers exploring API-based AI systems
+* Technical writers and DevRel professionals
+* Anyone interested in improving AI usability in products
 
 ---
 
 ## 🔮 Future Improvements
 
-- Context-aware responses using external data (RAG)
-- Advanced evaluation strategies
-- Streaming responses and latency handling
-- Tool usage and agent-based workflows
+* Context-aware responses using external data (RAG)
+* Advanced evaluation strategies
+* Streaming responses and latency handling
+* Tool usage and agent-based workflows
 
 ---
 
 ## 🤝 Why this matters
 
 Modern AI development is shifting from:
+
 > “Can we call the API?”
 
 to:
+
 > “Can we build something reliable, understandable, and usable?”
 
 This project is a step toward that shift.
