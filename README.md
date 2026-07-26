@@ -8,7 +8,7 @@
 
 A production-style AI support assistant designed to demonstrate how developers can build, evaluate, and improve real-world AI-powered features using modern API workflows.
 
-This is not a wrapper around an API call. It is a complete system with structured prompts, retry logic, response parsing, and an evaluation layer that catches hallucinations, uncertainty, irrelevance, and error leaks before they reach an end user.
+This is not a wrapper around an API call. It is a complete system with structured prompts, retry logic, response parsing, and an evaluation layer that catches hallucinations, uncertainty, irrelevance, and error leaks before they reach an end user. On top of that, an [observability layer](observability/) wraps the whole thing in a monitored loop — measuring response quality, retrying weak or failed answers, and producing aggregate quality metrics across every request.
 
 ---
 
@@ -35,6 +35,7 @@ A realistic **AI-powered support copilot** that:
 * Calls the API with automatic retry and exponential backoff for rate limits
 * Parses responses and handles failures gracefully
 * Evaluates every response across 8 quality dimensions before showing it to a user
+* Wraps the model call in an observability loop that retries low-quality answers and reports aggregate metrics
 
 ---
 
@@ -101,6 +102,78 @@ The model fabricated access to account data it does not have. The evaluation lay
 
 ---
 
+## Observability layer
+
+The single-response evaluation above is the per-response quality gate. The [`observability/`](observability/) package builds on that idea and wraps the model call in a **monitored loop** — turning "call the API and hope" into a system where output is measured, not assumed correct.
+
+It wraps your existing model call without changing your prompt or API logic, and runs fully offline and deterministically (no API key needed) so it can be exercised in CI.
+
+**What it does**
+
+* **Measures response quality** — `ResponseEvaluator` scores each response 0–1 across relevance, length adequacy, structure/actionability, and hedging, returning a pass/fail against a configurable threshold
+* **Detects failures** — hard-fails empty output, error markers, and fallback / non-answer responses ("I don't know," "I'm not sure")
+* **Triggers retries** — `call_with_retries` re-invokes the model on exceptions *and* on low-quality responses, with exponential backoff, keeping the best-scoring attempt
+* **Produces quality metrics** — `MetricsAggregator` reports pass rate, failure rate, retry rate, mean/min quality score, average attempts, and latency p50/p95 across all responses
+
+**Quick start**
+
+```python
+from observability import ObservabilityMonitor, ResponseEvaluator, RetryPolicy
+
+def model(query: str) -> str:
+    ...  # your existing src/copilot.py call
+
+monitor = ObservabilityMonitor(
+    model,
+    evaluator=ResponseEvaluator(threshold=0.6),
+    policy=RetryPolicy(max_retries=3),
+)
+
+answer = monitor.handle("How do I reset my password?")
+print(monitor.report())
+# {'total': 1, 'pass_rate': 1.0, 'failure_rate': 0.0, 'retry_rate': 0.0,
+#  'avg_quality_score': 0.86, 'avg_attempts': 1.0, 'latency_ms_p50': ...}
+```
+
+Run the end-to-end demo with a flaky mock model that intermittently errors or returns weak answers, so you can watch failure detection, retries, and metrics in action:
+
+```bash
+python demo.py
+```
+
+**How it fits the flow**
+
+```
+[User query]
+     ↓
+[src/copilot.py  ── your model call]
+     ↓
+call_with_retries ──► ResponseEvaluator (measure quality / detect failure)
+     │   ▲                     │
+     │   └── retry on fail ────┘
+     ↓
+ObservabilityMonitor ──► MetricsAggregator (produce quality metrics)
+     ↓
+[Best response + report()]
+```
+
+**Module layout**
+
+```
+observability/
+├── evaluator.py      # ResponseEvaluator: measures quality, detects failures
+├── reliability.py    # RetryPolicy + call_with_retries: retry on error or low quality
+├── metrics.py        # ResponseRecord + MetricsAggregator: aggregate quality metrics
+├── monitor.py        # ObservabilityMonitor: end-to-end loop + report()
+└── README.md         # layer-specific documentation
+demo.py                       # runnable demo with a flaky mock model (repo root)
+tests/test_observability.py   # 11 passing tests (repo root)
+```
+
+The layer ships with its own pytest suite (11 passing tests) covering evaluation scoring, failure detection, retry behaviour, and metric aggregation. See [`observability/README.md`](observability/README.md) for full details.
+
+---
+
 ## System flow
 
 ```mermaid
@@ -143,9 +216,16 @@ ai-support-copilot/
 ├── evals/
 │   └── response_quality.py        # 8-dimension evaluation system
 │
+├── observability/                 # monitored loop: evaluate, retry, aggregate metrics
+│   ├── evaluator.py               # measures quality, detects failures
+│   ├── reliability.py             # retry policy + call_with_retries
+│   ├── metrics.py                 # aggregate quality metrics
+│   └── monitor.py                 # ObservabilityMonitor: end-to-end loop
+│
 ├── tests/
 │   └── test_evaluation.py         # 17 tests proving evaluation works
 │
+├── demo.py                        # runnable observability demo (flaky mock model)
 └── requirements.txt               # Project dependencies
 ```
 
@@ -182,6 +262,12 @@ python examples/basic_chat.py
 
 ```bash
 python evals/response_quality.py
+```
+
+6. Run the observability demo (no API key needed)
+
+```bash
+python demo.py
 ```
 
 For detailed setup, see [Quickstart Guide](docs/quickstart.md)
@@ -257,6 +343,12 @@ Expected output:
 ```
 
 The test suite demonstrates each evaluation check catching a real, concrete failure mode, from fabricated account data to leaked stack traces to completely off-topic responses.
+
+The observability layer has its own suite (11 passing tests) covering evaluation scoring, failure detection, retry behaviour, and metric aggregation:
+
+```bash
+python -m pytest tests/test_observability.py -v
+```
 
 ---
 
