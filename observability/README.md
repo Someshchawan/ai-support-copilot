@@ -64,7 +64,7 @@ ObservabilityMonitor ──► MetricsAggregator (produce quality metrics)
 
 ```bash
 pip install pytest
-pytest -q          # 11 passing tests
+python -m pytest tests/test_observability.py -v          # 11 passing tests
 ```
 
 ## Layout
@@ -76,7 +76,7 @@ observability/
 ├── metrics.py        # ResponseRecord + MetricsAggregator (quality metrics)
 └── monitor.py        # ObservabilityMonitor: end-to-end loop + report()
 demo.py               # runnable demo with a flaky mock model
-tests/                # pytest suite
+tests/test_observability.py                # 11 passing tests (at repo root)
 ```
 
 ## Wiring it to the existing copilot
