@@ -1,6 +1,6 @@
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Tests](https://img.shields.io/badge/tests-17%20passed-brightgreen)
+![Tests](https://github.com/Someshchawan/ai-support-copilot/actions/workflows/tests.yml/badge.svg)
 
 📖 **[Live Documentation Site](https://someshchawan.github.io/ai-support-copilot-docs/)** — Built with Docusaurus, deployed via CI/CD
 
